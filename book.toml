@@ -1,0 +1,10 @@
+[book]
+title = "Intel Graphics on Linux"
+authors = ["Sad people"]
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+default-theme = "rust"
+

@@ -1,0 +1,23 @@
+# Pipeline from Application to Screen
+
+This section tries to summarize a minimal work flow to piece the graphics events together. The intention is to show how these components in graphics stack work with each other, and in what order the flow works. The flow below shall assume a normal x86 Linux desktop machine in 2024 with Intel GPU using mainline kernel i915 driver, using KDE plasma desktop environment, and its Wayland compositor KWin running.
+
+## Graphics Stack Setup When Linux Boots
+
+1. When the user hits the power button, the machine powers up and the CPU bootstrap processor starts from reset vector, enters the UEFI BIOS. In the BIOS the basic display functionality is provided by [Graphics Output Control](https://wiki.osdev.org/GOP) of UEFI or legacy [VESA video modes](https://wiki.osdev.org/VESA_Video_Modes) or [VGA mode](https://wiki.osdev.org/VGA_Hardware) for non-UEFI.
+2. The BIOS and bootloader then will hand over the control to the Linux kernel. When kernel boots to the DRM subsystem, the i915 DRM driver will register itself as the Intel GPU's driver, and initialize the KMS settings so early output can reach the screen. As previously introduced, in KMS setup the physical connector on GPU and corresponding encoder will be set up depending on what video cable (DisplayPort, HDMI) is connected to the GPU.
+3. i915 driver will also provide fbdev emulation so fbcon can work and provide the Linux Virtual Terminal in case there is no display server starting later. Some systems may choose to display a splash screen to cover the kernel messages and console before a GUI login manager or called Display Manager (DM) like SDDM for KDE and GDM for GNOME shows up.
+4. SDDM display manager starts, and with a few more details that will not be covered here, it is responsible to start the display server, KDE's KWin Wayland compositor. KWin opens the DRM primary node `/dev/dri/card0` and register itself as the DRM-master. Then the compositor can configure the screen color depth, resolution, refresh rate and others by using the DRM KMS functionality. For example, KMS connector detects the hardware supported resolution and refresh rate combinations and reports via DRM user interface, and compositor chooses or configures it.
+
+## Work Flow When a GUI Application Tries to Toggle a Check Box
+
+1. When a GUI application is being written, in most cases it needs not to directly talk to the underlying display server, it will use a GUI library like Qt, GTK, or others to provide the GUI. Using the application Dolphin (the file manager of KDE) as example, it will link to some Qt libraries and KDE Frameworks libraries, there's no direct link to libwayland-client or libwayland-cursor libraries.
+1. The GUI libraries are responsible to link to the libwayland-client and libwayland-cursor libraries and talk to KWin the Wayland compositor; if it's still an X client application and talks in X protocol, KWin's process kwin_wayland has some options to provide XWayland protocol and works as both X Server and Wayland client to talk to the main kwin_wayland process.
+1. When the GUI application makes some change on its user interface, as example of the section title toggle a check box, by code it may be a call to a Qt function in some Qt library to change the check box state. Then the Qt library will handle the graphical pixel changes and talk via libwayland-client by Wayland protocol to change an existing buffer for some contents.
+1. The KWin compositor receives the message from the application/Qt library, then by EGL specification it talks to the Mesa Gallium layer. Mesa gets the direct rendering task, and calls its iris driver for Intel GPU. The iris driver then calls the libdrm library functions to notify the kernel i915 DRM driver.
+1. The graphical changes are already in the existing framebuffer in the video memory as only a check box is toggled, as primary plane and other planes are notified to CRTC, it composites the final content to be displayed, and sent it to the working encoder. The encoder encodes the data and sent it to the physical connector of DisplayPort for the next frame.
+1. The monitor gets the new frame, decodes it and display it on the screen.
+
+## Further Reading
+
+As mentioned in the beginning, this section shows a minimal work flow for graphics stack setup and and normal application drawing update. The full flow and other additional features of course have much more details. Anyway, the flow is actually almost the full graphics stack. For readers who want to know more details during the pipeline flow, the previous mentioned article part 2 may be useful: [The Linux graphics stack in a nutshell, part 2](https://lwn.net/Articles/955708/).

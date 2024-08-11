@@ -1,0 +1,28 @@
+
+# Terminology
+
+| Term                           | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| Compositor                     | Wayland server is called compositor, as it composites the outputs from different components to the final output to the display. |
+| CRTC                           | CRT Controller (Cathode Ray Tube Controller), a Linux kernel DRM component that configures the video display mode settings. The name CRT is just for historical reasons. |
+| Direct Rendering Manager (DRM) | "The Linux DRM layer contains code intended to support the needs of complex graphics devices, usually containing programmable pipelines well suited to 3D graphics acceleration. Graphics drivers in the kernel may make use of DRM functions to make tasks like memory management, interrupt handling and DMA easier, and provide a uniform interface to applications." - Linux kernel's GPU Driver Developer's Guide |
+| Display server                 | The software that controls the inputs and outputs of its clients and is responsible to talk with hardware devices to get the keyboard/mouse/etc. inputs and outputs to the display, hence the name. Examples are X.Org Server, and Wayland compositors. |
+| GEM                            | Graphics Execution Manager. A memory manager of the Linux DRM subsystem initially developed for Intel i915 driver. It focuses uniform memory access GPU as integrated GPU only has system memory. |
+| GUI                            | graphical user interface.                                    |
+| i915 driver                    | Intel official in-kernel Linux driver for Intel GPUs. Started since Gen3 integrated GPU. |
+| Kernel Mode Setting (KMS)      | Mode setting means setting of GPU for the resolution, color depth, refresh rate of the display. In early UNIX systems it was the job of the X server. Because the user space mode setting shortcomings, Linux moved this functionality into kernel DRM subsystem. |
+| KMD (Kernel mode driver)       | Compare to the UMD (user mode driver), the kernel space driver for GPU. |
+| libinput                       | "libinput is a library that provides a full input stack for display servers and other applications that need to handle input devices provided by the kernel." - |
+| Mesa                           | Mesa is an open source implementation of OpenGL, Vulkan, VA-API and other graphics API specifications. Mesa contains many vendor specific drivers to support different GPUs, and is an important component in the Linux graphics stack together DRI, X.Org Server and Wayland compositors etc. |
+| nouveau                        | The open-source reverse engineering Nvidia GPU driver for Linux. The community effort to support Nvidia GPU when the official driver isn't GPL compatible and lack of features. |
+| scanout                        | "Scan out" means to fetch the pixel data. Scanout buffer means the pixel data's buffer to be displayed. Scanout process means the process to fetch the pixel data from the buffer or buffers to generate a final output frame. |
+| TTM                            | Translation Table Manager. A memory manager of the Linux DRM subsystem. "TTM is a memory manager for accelerator devices with dedicated memory. The basic idea is that resources are grouped together in buffer objects of certain size and TTM handles lifetime, movement and CPU mappings of those objects." - Linux kernel DRM document |
+| UMD (User mode driver)         | User space GPU driver. Like the X Server, as traditionally the GPU/display was managed by the X Server in user space. |
+| Wayland                        | Wayland is a new generation protocol to replace X Window System to overcome its shortcomings and start from scratch to get rid of the legacy architecture burdens. It still follows the server-client model of X, but drops the network |
+| X.Org                          | In 1999 the Open Group formed X.Org and it supervised X11R6.5.1 onward, while development mostly happened in XFree86 project. Since 2004 X.Org Foundation was formed as community driven and later started X.Org Server code release and it became the standard X server release in Linux distributions. |
+| X11                            | X Window System version 11. Since X reached version 11 in 3 years and this major version number never changed, X11 is often used exchangeable for X Window System. |
+| Xe driver                      | Intel's new Linux GPU driver to better support recent GPUs since the ARC GPU. Its goal is to get rid of compatibility burden of i915 driver, to be arch-independent for discrete GPU running on other architectures, to rework to provide better support and refined code structure to the current and future Intel GPUs. |
+| XFree86                        | Previous most widely used X Window System server implementation. Forked and replaced by X.Org Server. |
+| Window Manager                 | "A window manager (WM) is system software that controls the placement and appearance of windows within a windowing system in a graphical user interface (GUI). It can be part of a desktop environment (DE) or be used standalone." - Arch wiki. The concept is unique to X because for Wayland the compositor also takes control of the appearance of the GUI. |
+| X Window System                | The mostly used windowing system protocol for UNIX-like systems. It's a protocol that defines how the X server and X clients communicate with each other to get user input events to X clients and get X clients graphics output together to the X server to finally output to the display device. It's often called as X11, Xorg or simply X. |
+
