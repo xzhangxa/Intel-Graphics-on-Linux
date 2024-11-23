@@ -17,9 +17,10 @@
   - [History](./part2/history.md)
   - [Xe, Discrete GPU and Future](./part2/present.md)
 - [Intel GPU Architecture](./part2/gpu_architecture.md)
-- [Linux DRM Driver: i915 and Xe]()
+- [Linux DRM Driver: i915 and Xe](./part2/driver.md)
 - [Features and Details](./part2/detail.md)
   - [Linux Installation and Setup](./part2/installation.md)
+  - [Intel GPU Firmware](./part2/firmware.md)
   - [SR-IOV Support](./part2/sriov.md)
 
 [Appendix A - Nvidia Driver in Linux Graphics Stack](./appx/nvidia.md)
