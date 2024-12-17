@@ -14,7 +14,7 @@ For Linux virtual terminal (VT), frame buffer console driver (fbcon, `CONFIG_FB_
 
 The fbdev subsystem should be considered legacy, in a typical desktop machine, almost the only use cases for fbdev are to provide fbcon with Linux virtual terminal and provide boot splash screens.
 
-Unless for some low end embedded systems, the fbdev subsystem and drivers are replaced by the modern DRM subsystem and drivers. In kernel configuration, `CONFIG_FB` is for the fbdev subsystem and there's a `CONFIG_DRM_FBDEV_ENUMLATION` config for providing fbdev support in DRM, modern hardware DRM drivers provides the legacy fbdev support within, like Intel i915 driver the fbdev support is in `drivers/drm/i915/display/intel_fbdev.c`.
+Unless for some low end embedded systems, the fbdev subsystem and drivers are replaced by the modern DRM subsystem and drivers. In kernel configuration, `CONFIG_FB` is for the fbdev subsystem and there's a `CONFIG_DRM_FBDEV_EMULATION` config for providing fbdev support in DRM, modern hardware DRM drivers provides the legacy fbdev support within, like Intel i915 driver the fbdev support is in `drivers/drm/i915/display/intel_fbdev.c`.
 
 ## Direct Rendering Manager (DRM) Overview
 
@@ -83,7 +83,7 @@ A display, given different hardware implementations and generations, can be abst
 
   ![Plane](../pics/plane.jpg)
 
-- **CRTC**: CRT Controller (Cathode Ray Tube Controller) configures the video display mode settings. The name CRT is just for historical reasons. `struct drm_crtc` performs the scanout process in the display pipeline. It gets inputs from one or multiple planes and blend them together. One CRTC must have one plane bound called the primary plane, and can have other planes to bind such as one dedicated plane for the cursor and other hardware specific overlay planes. The CRTC fetches all the data from one or multiple planes and overlays the pixels, to generate a final display frame. The CRTC controls the hardware mode settings. Also there can be multiple CRTCs when there are multiple display outputs.
+- **CRTC**: `struct drm_crtc` performs the scanout process in the display pipeline. It gets inputs from one or multiple planes and blend them together. One CRTC must have one plane bound called the primary plane, and can have other planes to bind such as one dedicated plane for the cursor and other hardware specific overlay planes. The CRTC fetches all the data from one or multiple planes and overlays the pixels, to generate a final display frame. The CRTC controls the hardware mode settings. Also there can be multiple CRTCs when there are multiple display outputs.
 
 - **Encoder**: `struct drm_encoder` is the connecting hardware abstract between CRTC and the connector, it gets the pixel data from CRTC and converts it to a format suitable for the connector hardware. For example the connector interfaces may accept analog outputs such as VGA; others may take digital signals such modern DisplayPort and HDMI. A connector only accepts limited ranges of encoding and at a given time it can only connect to one encoder. Not all encoders can be connected to a specific CRTC because of hardware limitation from the hardware that the CRTC abstracts. So the data process combination of CRTC-encoder-connector is limited by hardware.
 
@@ -100,4 +100,4 @@ The below graph shows an overall scanout process in the Linux KMS model:
 
 ## Further Reading
 
-- Why Linux doesn't move GUI to kernel space. Check the first 2 first two high-voted answers, though the question is about Linux, these answers talk about Windows much more. However, they are still informative: [https://www.zhihu.com/question/20667741](https://www.zhihu.com/question/20667741).
+- Why Linux doesn't move GUI to kernel space. Check the first two high-voted answers, though the question is about Linux, these answers talk about Windows much more. However, they are still informative: [https://www.zhihu.com/question/20667741](https://www.zhihu.com/question/20667741).
