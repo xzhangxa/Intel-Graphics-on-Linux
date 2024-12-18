@@ -155,7 +155,7 @@ Wayland has some good resources for learning the concepts and the details. Some 
 
 Though in previous sections the advantages of Wayland over X are demonstrated and the Linux desktop community is moving to Wayland in the last ten years, it's still far from a Linux world without X existence. There are still some reasons for X and Wayland to co-exist for a while:
 
-- Legacy applications may not be updated to use Wayland. They may depends on old versions of GUI libraries that only run on X.
+- Legacy applications may not be updated to use Wayland. They may depend on old versions of GUI libraries that only run on X.
 - Some GPU hardware vendor lacks interests to provide better Wayland support in their software. So a distribution default to Wayland may still fall back to X backend when it's running on some vendor's GPU.
 - Wayland doesn't develop fast and some features didn't come mature as X for some time. Linux desktop is almost purely community driven and that also means short of resources.
 
