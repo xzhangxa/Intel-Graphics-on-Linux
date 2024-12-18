@@ -84,6 +84,12 @@ In the x.org website, there's an interesting guide [The X New Developer’s Guid
 
 ![X detail](../pics/x_detail.jpg)
 
+Some components in the graph:
+
+- **DIX**: Device Independent X. The core and hardware independent part of the X.Org Server.
+- **DDX**: Device Dependent X. The hardware dependent part of the X.Org Server. The packages `xserver-xorg-video-xxx` in Debian/Ubuntu packaging system are DDX for each vendor's GPU.
+- **GLX**: Open**GL** Extension to the **X** Window System. GLX is an X extension of interface of OpenGL and X Window System.
+
 ### Tips for Users
 
 ```shell

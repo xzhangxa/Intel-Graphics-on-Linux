@@ -14,7 +14,7 @@ For Linux virtual terminal (VT), frame buffer console driver (fbcon, `CONFIG_FB_
 
 The fbdev subsystem should be considered legacy, in a typical desktop machine, almost the only use cases for fbdev are to provide fbcon with Linux virtual terminal and provide boot splash screens.
 
-Unless for some low end embedded systems, the fbdev subsystem and drivers are replaced by the modern DRM subsystem and drivers. In kernel configuration, `CONFIG_FB` is for the fbdev subsystem and there's a `CONFIG_DRM_FBDEV_EMULATION` config for providing fbdev support in DRM, modern hardware DRM drivers provides the legacy fbdev support within, like Intel i915 driver the fbdev support is in `drivers/drm/i915/display/intel_fbdev.c`.
+Unless for some low end embedded systems, the fbdev subsystem and drivers are replaced by the modern DRM subsystem and drivers. In kernel configuration, `CONFIG_FB` is for the fbdev subsystem and there's a `CONFIG_DRM_FBDEV_EMULATION` config for providing fbdev support in DRM, modern hardware DRM drivers provide the legacy fbdev support within, like Intel i915 driver the fbdev support is in `drivers/drm/i915/display/intel_fbdev.c`.
 
 ## Direct Rendering Manager (DRM) Overview
 
