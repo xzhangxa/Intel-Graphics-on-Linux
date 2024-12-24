@@ -2,11 +2,11 @@
 
 ## Switch from i915 to Xe
 
-Intel started the Linux i915 driver for the integrated GPU since the i915 chipset at the generation of Gen3 (see [History](./history.md)). The future generations were supported in i915 driver with the name unchanged, before the 2021 release of Lunar Lake with Xe2, i915 was always the default Intel GPU Linux driver for both iGPU and dGPU.
+Intel started the Linux i915 driver for the integrated GPU since the i915 chipset at the generation of Gen3 (see [History](./history.md)). The future generations were supported in i915 driver with the name unchanged, before the 2024 release of Lunar Lake with Xe2, i915 was always the default Intel GPU Linux driver for both iGPU and dGPU.
 
-With the major change of discrete GPU business and Xe architecture, a new Linux DRM driver was introduced with the name [Xe](https://www.phoronix.com/news/Intel-Mesa-ANV-Prep-For-Xe-KMD). The Xe driver is a fresh start without all the legacy functionality of i915 included for the old generations, and makes some major changes to better work with the latest Linux graphics stack and the new and later Xe architecture generations. The Xe DRM driver was merged to mainline Linux at v6.8 and co-existed with i915 until Gen12.
+With the major change of discrete GPU business and Xe architecture, a new Linux DRM driver was introduced with the name [Xe](https://docs.kernel.org/next/gpu/rfc/xe.html). The Xe driver is a fresh start without all the legacy functionality of i915 included for the old generations, and makes some major changes to better work with the latest Linux graphics stack and the new and later Xe architecture generations. The Xe DRM driver was merged to mainline Linux at v6.8 and in the recently released LNL and Battlemage B580, only the Xe driver can be used.
 
-Xe driver code-base also allows Intel to make use of more shared DRM/kernel infrastructure around TTM memory management, the DRM scheduler originally adapted from the AMDGPU driver, and other common elements. For areas like display handling, Intel's Xe driver is working to share code with the existing i915 driver where it has worked well and reduces the risk of regressing hardware support, etc. In user-space, Intel's Iris Gallium3D driver and ANV Vulkan driver will work with this new kernel driver.
+Xe driver code-base also allows Intel to make use of more shared DRM/kernel infrastructure around TTM memory management, the DRM scheduler originally adapted from the AMDGPU driver, and other common elements. For areas like display handling, Intel's Xe driver is working to share code with the existing i915 driver where it has worked well and reduces the risk of hardware support regression, etc. In user-space, Intel's Iris Gallium3D driver and ANV Vulkan driver will work with this new kernel driver.
 
 
 The major differences and improvements of Xe driver to i915 are:
@@ -17,7 +17,7 @@ The major differences and improvements of Xe driver to i915 are:
     - Xe has clear layering and well-defined common structures, whereas i915 uses some common contexts everywhere(e.g., IRQ), and some layers are confusing and not fully correct(e.g., GuC submission and scheduling);
     - Xe provides clearer documentation for all common structures and large components.
 
-- **Performance Optimization**: Xe driver integrated the dgfx foundation and DG2 support, and integrated datacenter features from Ponte Vecchio/Raptor Lake/Arctic Sound-M, such as:
+- **Performance Optimization**: Xe driver integrated the dgfx foundation and DG2 support, and incorporated many datacenter features that were blocked by the multi-year refactoring effort needed for i915, such as:
   - SR-IOV: allows a single physical device to be shared among multiple virtual machines;
   - USM: Unified Shared Memory, allows the CPU and GPU to share the same physical memory to improve computational efficiency;
   - EUDebug: helping developers identify and resolve performance bottlenecks and errors;
@@ -26,7 +26,6 @@ The major differences and improvements of Xe driver to i915 are:
 
 - **Modern Architecture**:
   - i915 is architected for legacy UMD (e.g., OpenGL, X) and Xe is designed to meet the needs of modern graphics APIs(e.g., Vulkan and Level Zero).
-  - i915 boots basically all Intel graphics generations but there is no more relocations in Xe and VM_BIND is the only path forward.
   - i915 has poorly utilized shared DRM infrastructure and Linux upstream improvements. Xe uses the common DRM/DMA-BUF framework as much as possible, such as DRM scheduler for command submission and TTM for memory management.
 
 
