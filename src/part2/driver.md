@@ -42,6 +42,5 @@ The major differences and improvements of Xe driver to i915 are:
 
 ## Further Reading
 
-- [Xe](https://docs.kernel.org/next/gpu/rfc/xe.html)
 - [DRM/i915 uAPI](https://www.kernel.org/doc/html/latest/gpu/driver-uapi.html#drm-i915-uapi)
 - [DRM/Xe uAPI](https://www.kernel.org/doc/html/latest/gpu/driver-uapi.html#drm-xe-uapi)
