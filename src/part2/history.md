@@ -71,6 +71,9 @@ Link:
 | --- | --- | --- | --- | ------ |
 | 2013 | Intel HD Graphics 4200/4400/4600/5000/Iris 5100 | Intel Core 4th Gen: Haswell Microarchitecture | 22nm | HEVC decode, JPEG encode | |
 
+Link:
+- [Gen7.5](https://en.wikipedia.org/wiki/Intel_Graphics_Technology#Gen7.5)
+
 ## Gen8
 
 | Year | Brand Name | Packaging | Node | Key Features |
