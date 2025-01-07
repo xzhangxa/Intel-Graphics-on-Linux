@@ -2,7 +2,7 @@
 
 ## Overview
 
-This section, as the first section and the name, will introduce the overall architecture of Linux graphics software. Each component may be introduced in its own chapter. Here is a quick glance to the big pictures, otherwise it's easy to get lost in understanding the relationship of these components since the graphics is complex and too many components are involved in hardware, kernel space, user space server and applications.
+This section, being the first one and bearing the name, will introduce the overall architecture of Linux graphics software. Each component may be introduced in its own chapter. Here is a quick glance to the big pictures, otherwise it's easy to get lost in understanding the relationship of these components since the graphics is complex and too many components are involved in hardware, kernel space, user space server and applications.
 
 This is an overview diagram of the Linux graphics stack from bootlin slides:
 
@@ -16,4 +16,4 @@ This diagram covers the fairly recent Linux graphics environment as it was writt
 
 A recent LWN two articles series about the Linux Graphics Stack: [The Linux graphics stack in a nutshell, part 1](https://lwn.net/Articles/955376/), [The Linux graphics stack in a nutshell, part 2](https://lwn.net/Articles/955708/).
 
-This is an overview in 2012, so Wayland is not mentioned, and some chapters are incomplete, but overall it's informative: [Linux Graphics Drivers: an Introduction](https://people.freedesktop.org/~marcheu/linuxgraphicsdrivers.pdf).
+This is an overview in 2012, although Wayland is not mentioned, and some chapters are incomplete, but overall it's informative: [Linux Graphics Drivers: an Introduction](https://people.freedesktop.org/~marcheu/linuxgraphicsdrivers.pdf).
